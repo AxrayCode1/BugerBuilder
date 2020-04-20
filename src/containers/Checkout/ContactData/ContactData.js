@@ -112,10 +112,10 @@ class ContactData extends Component{
     }
 
     checkValidity(value, rules) {
-        let isValid = false;
-
+        let isValid = true;            
+        
         if(rules.required) {
-            isValid = value.trim() !== '';
+            isValid = value.trim() !== '';            
         }
 
         if(isValid && rules.minLength) {
@@ -125,7 +125,7 @@ class ContactData extends Component{
         if(isValid && rules.maxLength) {
             isValid = value.length <= rules.maxLength;
         }
-
+        
         return isValid;
     }
     
@@ -144,8 +144,8 @@ class ContactData extends Component{
         //console.log(updatedOrderForm);
 
         let formIsValid = true;
-        for(let inputIdentifier in updatedOrderForm){
-            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        for(let inputIdentifier in updatedOrderForm){        
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;            
         }
         
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
@@ -189,9 +189,9 @@ class ContactData extends Component{
 
 const mapStateToProps = state => {
     return{
-        ings: state.ingredients,
-        price: state.totalPrice,
-        loading: state.loading
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
 
@@ -201,4 +201,4 @@ const mapDispatchToProps = dispatch => {
     };    
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
