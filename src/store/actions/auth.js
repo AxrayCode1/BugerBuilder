@@ -22,7 +22,7 @@ export const authFail = (error) => {
     }
 }
 
-export const logout = () => {
+export const logout = () => {    
     return {
         type: actionTypes.AUTH_LOGOUT
     }
@@ -58,5 +58,12 @@ export const auth = (email, password, isSignup) => {
                 console.log(err);
                 dispatch(authFail(err.response.data.error));
             })
+    }
+}
+
+export const setAuthRedirectPath = (path) => {
+    return {
+        type: actionTypes.SET_AUTH_REDIRECT_PATH,
+        path: path
     }
 }
