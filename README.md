@@ -7,3 +7,4 @@ Use react to complete a "Burger Builder" project
 5. Custom Dynamic Input Element，藉由 config 去決定 Input Element 的設定與驗證
 6. add redux to pass global state
 7. add auth protect with firebase
+8. lazy loading with hoc
