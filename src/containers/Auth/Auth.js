@@ -82,7 +82,7 @@ class Auth extends Component {
     }
 
     render () {
-        console.log('Auth.js render');
+        // console.log('Auth.js render');
         const formElemetsArray = [];
         for (let key in this.state.controls){
             formElemetsArray.push({

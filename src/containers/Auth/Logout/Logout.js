@@ -6,7 +6,7 @@ import * as actions from '../../../store/actions/index';
 
 class Logout extends Component {
     componentDidMount () {
-        console.log('[Logout.js] didMount');
+        // console.log('[Logout.js] didMount');
         this.props.onLogout();
     }
 
