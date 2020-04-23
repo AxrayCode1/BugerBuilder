@@ -10,6 +10,8 @@ import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
 
+import { updatedObject, checkValidity }  from '../../../shared/utility';
+
 class ContactData extends Component{
     state = {
         orderForm: {            
@@ -111,46 +113,17 @@ class ContactData extends Component{
         }     
         console.log(order);       
         this.props.onOrderBurger(order, this.props.token);
-    }
-
-    checkValidity(value, rules) {
-        let isValid = true;            
-        
-        if(rules.required) {
-            isValid = value.trim() !== '';            
-        }
-
-        if(isValid && rules.minLength) {
-            isValid = value.length >= rules.minLength;
-        }
-
-        if(isValid && rules.maxLength) {
-            isValid = value.length <= rules.maxLength;
-        }
-
-        if(isValid && rules.isEmail) {
-            const pattern = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
-            isValid = pattern.test(value);
-        }
-
-        if(isValid && rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value);
-        }
-        
-        return isValid;
-    }
+    }    
     
-    inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        }        
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)    
-        updatedFormElement.touched = true;
+    inputChangedHandler = (event, inputIdentifier) => {        
+        const updatedFormElement = updatedObject(this.state.orderForm[inputIdentifier],{
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        });                  
+        const updatedOrderForm = updatedObject(this.state.orderForm,{
+            [inputIdentifier]: updatedFormElement
+        });        
         // console.log(updatedFormElement); 
         updatedOrderForm[inputIdentifier] = updatedFormElement;      
         //console.log(updatedOrderForm);

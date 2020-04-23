@@ -10,6 +10,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 
 import * as actions from '../../store/actions/index';
 
+import { updatedObject, checkValidity }  from '../../shared/utility';
 
 class Auth extends Component {
     state = {
@@ -46,17 +47,15 @@ class Auth extends Component {
         isSignup: true
     }
 
-    inputChangedHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
+    inputChangedHandler = (event, controlName) => {               
+        const updatedControls = updatedObject(this.state.controls,{
+            [controlName]: updatedObject(this.state.controls[controlName],{
                 value : event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                valid: checkValidity(event.target.value, this.state.controls[controlName].validation),
                 touched: true
-            }
-            
-        }
+            })
+        })
+        
         this.setState({
             controls: updatedControls
         });
@@ -67,35 +66,7 @@ class Auth extends Component {
         if(!this.props.buildingBurger && this.props.authRedirectPath !== '/'){
             this.props.onSetAuthRedirectPath();
         }
-    }
-
-    checkValidity(value, rules) {
-        let isValid = true;            
-        
-        if(rules.required) {
-            isValid = value.trim() !== '';            
-        }
-
-        if(isValid && rules.minLength) {
-            isValid = value.length >= rules.minLength;
-        }
-
-        if(isValid && rules.maxLength) {
-            isValid = value.length <= rules.maxLength;
-        }
-
-        if(isValid && rules.isEmail) {
-            const pattern = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
-            isValid = pattern.test(value);
-        }
-
-        if(isValid && rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value);
-        }
-        
-        return isValid;
-    }
+    }    
 
     submitHandler = (event) => {
         event.preventDefault();
