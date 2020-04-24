@@ -6,7 +6,7 @@ import asycComponent from './hoc/asyncComponent/asyncComponent';
 import * as actions from './store/actions/index';
 
 import Layout from './hoc/Layout/Layout';
-import BurgerBuilder from './containers/BugerBuilder/BugerBuilder';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Logout from './containers/Auth/Logout/Logout';
 
 const aysncCheckout = asycComponent(() => {
