@@ -8,3 +8,6 @@ Use react to complete a "Burger Builder" project
 6. add redux to pass global state
 7. add auth protect with firebase
 8. lazy loading with hoc
+9. deploy to firebase
+10. change project to React Hooks
+11. use React.lazy replace hoc asyncComponent
