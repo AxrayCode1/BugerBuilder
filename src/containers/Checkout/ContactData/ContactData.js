@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, useStore } from 'react-redux';
+import { connect } from 'react-redux';
 
 import axios from '../../../axios-orders';
 

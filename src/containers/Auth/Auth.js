@@ -58,11 +58,13 @@ const auth = props => {
         setControls(updatedControls);
     }
 
+    const { buildingBurger, authRedirectPath, onSetAuthRedirectPath} = props;
+
     useEffect(() => {
-        if(!props.buildingBurger && props.authRedirectPath !== '/'){
-            props.onSetAuthRedirectPath();
+        if(!buildingBurger && authRedirectPath !== '/'){
+            onSetAuthRedirectPath();
         }
-    },[]);
+    },[buildingBurger, authRedirectPath, onSetAuthRedirectPath]);
 
     const submitHandler = (event) => {
         event.preventDefault();
